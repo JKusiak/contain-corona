@@ -8,14 +8,8 @@
 
     <com.anychart.anychart.AnyChartView
         android:id="@+id/any_chart_view"
-        android:layout_width="333dp"
-        android:layout_height="637dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
