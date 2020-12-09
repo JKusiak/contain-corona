@@ -1,48 +1,23 @@
 package com.example.containcorona;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
-import android.util.Log;
-
-import com.anychart.anychart.AnyChart;
-import com.anychart.anychart.AnyChartView;
-import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Pie;
-import com.anychart.anychart.ValueDataEntry;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements CoronaApiServiceCallback {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CoronaApiService coronaApiService = new CoronaApiService(this);
-        coronaApiService.requestData();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        NavController navController = Navigation.findNavController(this,  R.id.fragment);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
     }
-
-    @Override
-    public void callback(int newCases, int globalCases) {
-
-        List<Integer> cases = new ArrayList<>();
-        String[] types = {"New", "Total"};
-
-        cases.add(newCases);
-        cases.add(globalCases);
-
-        List<DataEntry> data = new ArrayList<>();
-        for (int i = 0; i < cases.size(); i++)
-            data.add(new ValueDataEntry(types[i], cases.get(i)));
-
-        Pie pie = AnyChart.pie();
-        pie.setData(data);
-
-        AnyChartView anyChartView = (AnyChartView) findViewById(R.id.any_chart_view);
-        anyChartView.setChart(pie);
-    }
-
 }

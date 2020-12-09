@@ -1,14 +1,9 @@
 package com.example.containcorona;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -29,7 +24,7 @@ public class CoronaApiService {
         this.globalCases = globalCases;
     }
 
-    CoronaApiService(CoronaApiServiceCallback apiCallback) {
+    public CoronaApiService(CoronaApiServiceCallback apiCallback) {
         this.apiCallback = apiCallback;
     }
 
