@@ -49,11 +49,23 @@ public class CoronaApiService {
                                 nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
                                 gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
                                 set(nc, gc);
-                                apiCallback.callback(nc, gc);
+                                apiCallback.callback(nc, gc, Graph.PIE_NEW_VS_TOTAL);
                                 break;
                             }
                         }
-                    } if (GraphSettingsList.someOtherChartOn) {}
+                    }
+                    if (GraphSettingsList.someOtherChartOn) {
+                        jsonData = new JSONObject(jsonBody);
+                        for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
+                                nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
+                                gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
+                                set(nc, gc);
+                                apiCallback.callback(nc, gc, Graph.STH_OTHER);
+                                break;
+                            }
+                        }
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
