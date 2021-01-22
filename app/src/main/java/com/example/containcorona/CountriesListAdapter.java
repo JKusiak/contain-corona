@@ -40,7 +40,7 @@ public class CountriesListAdapter extends ArrayAdapter {
         textViewCountry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(context,"You Selected "+countryNames[position]+ " as Country", Toast.LENGTH_SHORT).show();
-                // TODO HERE GOES INFO TO JSON ABOUT WHAT COUNTRY COUNT CURRENTLY
+                GraphSettingsList.country = countryNames[position];
             }
         });
 

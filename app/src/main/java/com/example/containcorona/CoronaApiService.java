@@ -42,11 +42,18 @@ public class CoronaApiService {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 jsonBody = response.body().string();
                 try {
-                    jsonData = new JSONObject(jsonBody);
-                    nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
-                    gc = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalConfirmed"));
-                    set(nc, gc);
-                    apiCallback.callback(nc, gc);
+                    if (GraphSettingsList.pieNewVsTotalOn) {
+                        jsonData = new JSONObject(jsonBody);
+                        for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
+                                nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
+                                gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
+                                set(nc, gc);
+                                apiCallback.callback(nc, gc);
+                                break;
+                            }
+                        }
+                    } if (GraphSettingsList.someOtherChartOn) {}
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
