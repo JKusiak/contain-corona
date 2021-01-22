@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.containcorona.HomeFragment"
+        android:name="com.example.containcorona.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/countriesFragment"
-        android:name="com.example.containcorona.CountriesFragment"
+        android:name="com.example.containcorona.fragments.CountriesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_countries" />
     <fragment
         android:id="@+id/addGraphFragment"
-        android:name="com.example.containcorona.AddGraphFragment"
+        android:name="com.example.containcorona.fragments.AddGraphFragment"
         android:label="fragment_add_graph"
         tools:layout="@layout/fragment_add_graph" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.containcorona.SettingsFragment"
+        android:name="com.example.containcorona.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

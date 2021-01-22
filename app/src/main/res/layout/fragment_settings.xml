@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="@+id/settingsLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment">
+    tools:context=".fragments.SettingsFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -15,58 +17,70 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/aboutUsText"/>
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.947"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/notificationsSwitch"
+        android:layout_width="63dp"
+        android:layout_height="40dp"
+        android:elevation="1dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:theme="@style/SettingsSwitchTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationsText"
+        app:layout_constraintEnd_toEndOf="@+id/notificationsText"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="@+id/notificationsText"
+        app:layout_constraintTop_toTopOf="@+id/notificationsText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/notificationsText"
         android:layout_width="333dp"
         android:layout_height="41dp"
         android:layout_marginTop="68dp"
-        android:background="@drawable/settings_bar_borders"
+        android:background="@drawable/box_unclicked"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
-
         android:text="Notifications"
+        android:textColor="@color/our_black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/importantInformationText"
         android:layout_width="333dp"
         android:layout_height="41dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/settings_bar_borders"
+        android:background="@drawable/box_unclicked"
         android:gravity="center_vertical"
-
         android:paddingLeft="15dp"
         android:text="Important information"
+        android:textColor="@color/our_black"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/notificationsText" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/aboutUsText"
         android:layout_width="333dp"
         android:layout_height="41dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/settings_bar_borders"
+        android:background="@drawable/box_unclicked"
         android:gravity="center_vertical"
-
         android:paddingLeft="15dp"
         android:text="About us"
+        android:textColor="@color/our_black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/importantInformationText" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

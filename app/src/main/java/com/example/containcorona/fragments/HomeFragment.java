@@ -1,4 +1,4 @@
-package com.example.containcorona;
+package com.example.containcorona.fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,10 @@ import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.DataEntry;
 import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
+import com.example.containcorona.CoronaApiService;
+import com.example.containcorona.CoronaApiServiceCallback;
+import com.example.containcorona.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,14 +7,14 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/countriesFragment"
-        android:icon="@drawable/ic_countries"
-        android:title="Countries" />
-
-    <item
         android:id="@+id/addGraphFragment"
         android:icon="@drawable/ic_add_graph"
         android:title="Add graph"  />
+
+    <item
+        android:id="@+id/countriesFragment"
+        android:icon="@drawable/ic_countries"
+        android:title="Countries" />
 
     <item
         android:id="@+id/settingsFragment"
