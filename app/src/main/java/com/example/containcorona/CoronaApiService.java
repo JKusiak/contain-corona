@@ -1,5 +1,9 @@
 package com.example.containcorona;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,13 +22,16 @@ public class CoronaApiService {
     private String jsonBody;
     private JSONObject jsonData;
     private CoronaApiServiceCallback apiCallback;
+    private Activity context;
+
 
     public void set(int newCases, int globalCases){
         this.newCases = newCases;
         this.globalCases = globalCases;
     }
 
-    public CoronaApiService(CoronaApiServiceCallback apiCallback) {
+    public CoronaApiService(Activity context, CoronaApiServiceCallback apiCallback) {
+        this.context = context;
         this.apiCallback = apiCallback;
     }
 

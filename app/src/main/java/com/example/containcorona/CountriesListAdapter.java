@@ -1,6 +1,8 @@
 package com.example.containcorona;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ public class CountriesListAdapter extends ArrayAdapter {
     private String[] countryNames;
     private Integer[] imageid;
     private Activity context;
+//    SharedPreferences appPreferences = this.context.getPreferences(Context.MODE_PRIVATE);
+//    SharedPreferences.Editor editor = appPreferences.edit();
 
     public CountriesListAdapter(Activity context, String[] countryNames, Integer[] imageid) {
         super(context, R.layout.row_countries, countryNames);
@@ -25,6 +29,7 @@ public class CountriesListAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
         LayoutInflater inflater = context.getLayoutInflater();
+
 
         if(convertView==null)
             row = inflater.inflate(R.layout.row_countries, null, true);
@@ -39,8 +44,10 @@ public class CountriesListAdapter extends ArrayAdapter {
 
         textViewCountry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context,"You Selected "+countryNames[position]+ " as Country", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"You Selected "+ countryNames[position] + " as Country", Toast.LENGTH_SHORT).show();
                 GraphSettingsList.country = countryNames[position];
+//                editor.putString("currentCountryName", countryNames[position]);
+//                editor.apply();
             }
         });
 

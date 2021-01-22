@@ -1,6 +1,8 @@
 package com.example.containcorona.fragments;
 
 import android.app.Notification;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
@@ -23,17 +25,23 @@ import static com.example.containcorona.MainActivity.NOTIFICATIONS_CHANNEL_ID;
 
 public class SettingsFragment extends Fragment {
     NotificationManagerCompat notificationManager;
-
     ConstraintLayout settingsLayout;
     TextView importantInformationText;
     TextView aboutUsText;
     View popupView;
     PopupWindow popupWindow;
     SwitchCompat notificationsSwitch;
+    boolean switchState;
+    SharedPreferences.Editor editor;
+    SharedPreferences appPreferences;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
+        editor = appPreferences.edit();
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -44,12 +52,19 @@ public class SettingsFragment extends Fragment {
 
         notificationManager = NotificationManagerCompat.from(getActivity());
 
+
         if (view != null) {
             settingsLayout = (ConstraintLayout) getView();
 
             importantInformationText = (TextView) view.findViewById(R.id.importantInformationText);
             aboutUsText = (TextView) view.findViewById(R.id.aboutUsText);
             notificationsSwitch = (SwitchCompat) view.findViewById(R.id.notificationsSwitch);
+            switchState = appPreferences.getBoolean("switch_state", false);
+
+            if(switchState){
+                notificationsSwitch.setChecked(true);
+            }
+
 
             importantInformationText.setOnClickListener(new View.OnClickListener(){
 
@@ -71,9 +86,12 @@ public class SettingsFragment extends Fragment {
 
             notificationsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        enableNotifications(buttonView);
-                    }
+                    editor.putBoolean("switch_state", isChecked);
+                    editor.commit();
+
+
+                    enableNotifications(buttonView);
+
                 }
             });
         }
@@ -132,6 +150,5 @@ public class SettingsFragment extends Fragment {
                 .build();
 
         notificationManager.notify(1, testNotification);
-
     }
 }
