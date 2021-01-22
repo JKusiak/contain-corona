@@ -13,6 +13,7 @@ import com.example.containcorona.R;
 
 
 public class CountriesFragment extends Fragment {
+
     private String countryNames[] = {
             "Worldwide",
             "Austria",
@@ -59,6 +60,7 @@ public class CountriesFragment extends Fragment {
 
         listView.setAdapter(countryListAdapter);
         listView.setFocusable(false);
+
     }
 
 
