@@ -24,6 +24,8 @@ import static com.example.containcorona.MainActivity.NOTIFICATIONS_CHANNEL_ID;
 
 
 public class SettingsFragment extends Fragment {
+    SharedPreferences appPreferences;
+    SharedPreferences.Editor editor;
     NotificationManagerCompat notificationManager;
     ConstraintLayout settingsLayout;
     TextView importantInformationText;
@@ -32,16 +34,13 @@ public class SettingsFragment extends Fragment {
     PopupWindow popupWindow;
     SwitchCompat notificationsSwitch;
     boolean switchState;
-    SharedPreferences.Editor editor;
-    SharedPreferences appPreferences;
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
-        editor = appPreferences.edit();
+
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -61,12 +60,11 @@ public class SettingsFragment extends Fragment {
             notificationsSwitch = (SwitchCompat) view.findViewById(R.id.notificationsSwitch);
             switchState = appPreferences.getBoolean("switch_state", false);
 
-            if(switchState){
+            if (switchState) {
                 notificationsSwitch.setChecked(true);
             }
 
-
-            importantInformationText.setOnClickListener(new View.OnClickListener(){
+            importantInformationText.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -75,7 +73,7 @@ public class SettingsFragment extends Fragment {
                 }
             });
 
-            aboutUsText.setOnClickListener(new View.OnClickListener(){
+            aboutUsText.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -86,12 +84,11 @@ public class SettingsFragment extends Fragment {
 
             notificationsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    editor = appPreferences.edit();
                     editor.putBoolean("switch_state", isChecked);
-                    editor.commit();
-
+                    editor.apply();
 
                     enableNotifications(buttonView);
-
                 }
             });
         }
@@ -121,7 +118,8 @@ public class SettingsFragment extends Fragment {
 
     public void showAboutUs(View v) {
         popupView = getLayoutInflater().inflate(R.layout.popup_aboutus, null);
-        popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
+        //TODO Make it not hardcoded cause its lame, also fucked up style of text
+        popupWindow = new PopupWindow(popupView, 900, 1700, true);
 
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         popupWindow.setTouchable(true);

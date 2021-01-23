@@ -1,18 +1,22 @@
 <resources>
     <string name="app_name">ContainCorona</string>
     <string name="important_info_text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mauris augue, faucibus et vestibulum non, porttitor quis nulla. Donec vel sem quis nulla lobortis posuere sit amet a magna. Morbi odio dolor, ultricies in velit quis, gravida mollis magna. Maecenas tincidunt scelerisque turpis, a egestas nunc iaculis eu. Donec accumsan ligula turpis, eu luctus orci egestas sit amet. Praesent erat urna, ornare in facilisis sit amet, porttitor quis odio. Donec blandit, magna id vulputate pharetra, erat augue fringilla diam, a efficitur nibh quam id nunc. Donec mollis in mi imperdiet viverra. Aliquam porta elementum maximus. Fusce gravida egestas nisi nec dignissim.
-
-Curabitur tincidunt nunc in dolor consectetur pretium. Integer tempor ipsum odio, ac venenatis arcu lacinia nec. Donec tincidunt sed neque ac laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum justo lorem, tristique sit amet diam eget, tincidunt facilisis libero. Etiam in blandit mauris. Proin vel commodo dolor. Aliquam facilisis vehicula placerat. In nunc urna, rhoncus ac tincidunt at, finibus in nisi. Donec eget nibh nec tortor tristique fermentum vel non est. Fusce iaculis condimentum porta. Aliquam erat volutpat. Vivamus fringilla tristique suscipit. Aenean ullamcorper diam a tortor efficitur fermentum.
-
-Nunc consectetur felis non lectus aliquet tristique. Morbi rhoncus nulla convallis, malesuada quam vel, aliquet libero. Praesent eleifend nibh non libero viverra, a congue turpis condimentum. Etiam non ligula leo. Vestibulum ultrices, lorem ac suscipit feugiat, mauris est tristique odio, ac sodales lorem velit nec tortor. Quisque ac ultricies diam. Etiam laoreet ipsum in dui tincidunt suscipit vel ut purus. Phasellus feugiat eget arcu eget faucibus. Nulla pretium mi et iaculis hendrerit. Donec at viverra tellus, eu condimentum dui. Nunc justo est, sagittis at mi sed, aliquam hendrerit libero.
-
-Suspendisse viverra erat consectetur eros suscipit suscipit. Nullam sed leo nec mi blandit bibendum. Nullam at molestie justo, at commodo nunc. Morbi vitae nisi pulvinar, accumsan justo in, volutpat dui. Quisque sit amet interdum massa, in dignissim dolor. Phasellus aliquam est eget lectus luctus, at ornare purus ullamcorper. Nullam iaculis erat ante. Sed rutrum leo nisi, et pretium lectus sodales a. Vivamus porta ullamcorper nunc. Nunc luctus urna neque, in vulputate enim rhoncus id. Nam imperdiet magna massa, id pulvinar ligula tincidunt et. Mauris venenatis finibus posuere. Fusce efficitur, metus et suscipit tempor, risus nulla ultricies velit, vel scelerisque massa purus non erat. Nunc vulputate, ligula pharetra mollis tempor, nunc nunc blandit nunc, a egestas mi mauris vitae augue.
-
-Quisque ultrices facilisis ligula, vitae dignissim risus tincidunt in. Sed tincidunt sagittis est, nec accumsan sem rutrum eu. Praesent lacinia tortor sed massa viverra rhoncus. Vestibulum dapibus odio in dui molestie feugiat. Ut et neque nec lorem efficitur feugiat. Nullam nisl velit, venenatis eu ante vel, commodo rhoncus orci. Pellentesque egestas elementum sem, at fringilla urna aliquet at. Integer vel nisi sit amet lectus ultricies mattis vitae id mauris. Ut mattis lectus vitae enim sollicitudin, eu condimentum tortor viverra. Integer tellus metus,
+        Here is nothing now but will be something someday. Maybe. Hopefully
     </string>
+
     <string name="about_us_text">
-        Here soon will be some text about what we did and why oh why do we do it to ourselves
+        <big><b>Who are we?</b></big>
+        <div>A group of students from Lodz University of Technology, the application you see was created as a part of our Mobile Systems course.</div>
+        <br/>
+        <big><b>What has driven us?</b></big>
+        <div>During the 2020 a lot of people (us included) developed a habit of checking the covid statistics on a daily basis, sometimes as a first thing we did after waking up instead of scrolling through social media. This acted as a source of anxiety and anger, but was still irresistibly tempting. We realized, that it was because of the engagement-inciting nature of their delivery, trying to blow out of proportion everything that can cause strong emotions.</div>
+        <br/>
+        <big><b>Why this app?</b></big>
+        <div>We know that nothing would stop the news publishers from what they are doing as they profit from increasing the engagement of their viewers. The only way to do something is proposing our own alternative. And that is what we did.</div>
+        <div>We hope the app gives you an experience not overloaded with stimulus, providing a concise, non biased insight into the development of the pandemic in different countries. Please, in addition to that read the Important Info section to improve your knowledge about recognizing misleading statistics. <strong>Stay save and well!</strong></div>
+        <br/>
+        <div><b>Authors</b></div>
+        <div><b> Mateusz Kmieciak, Juliusz Kusiak, Maciej Szulc</b></div>
     </string>
 
 

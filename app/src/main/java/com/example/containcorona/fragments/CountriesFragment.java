@@ -1,5 +1,7 @@
 package com.example.containcorona.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,7 @@ import com.example.containcorona.R;
 
 
 public class CountriesFragment extends Fragment {
+    public SharedPreferences appPreferences;
 
     private String countryNames[] = {
             "Worldwide",
@@ -48,6 +51,7 @@ public class CountriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
         return inflater.inflate(R.layout.fragment_countries, container, false);
     }
 
@@ -60,7 +64,6 @@ public class CountriesFragment extends Fragment {
 
         listView.setAdapter(countryListAdapter);
         listView.setFocusable(false);
-
     }
 
 

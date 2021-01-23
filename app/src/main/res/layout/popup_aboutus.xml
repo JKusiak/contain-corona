@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusable="true"
+    android:layout_margin="24dp"
     android:background="@drawable/box_text_settings">
 
     <TextView
