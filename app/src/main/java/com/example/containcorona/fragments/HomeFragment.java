@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
+import com.anychart.anychart.Cartesian;
+import com.anychart.anychart.Chart;
 import com.anychart.anychart.DataEntry;
 import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
@@ -28,9 +31,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
-    private TextView feedback;
-    private int howManyAlDrawn = 0;
-    private ArrayList<AnyChartView> charts = new ArrayList<>();
+    private final ArrayList<Integer> anvIds = new ArrayList<>();
+    private boolean firstCallBack = true;
+    private int howManyDrawn = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,35 +47,32 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        feedback = view.findViewById(R.id.feedBack);
-        StringBuilder sb = new StringBuilder().append(GraphSettingsList.country).append(" ").append(howManyAlDrawn);
-        feedback.setText(sb);
-        ArrayList<Integer> anvIds = new ArrayList<>();
-        anvIds.add(R.id.any_chart_view);
-        anvIds.add(R.id.any_chart_viuu);
-        while (howManyAlDrawn != 2) {
-            howManyAlDrawn++;/*
-            List<DataEntry> fake = new ArrayList<>();
-            Pie pie = AnyChart.pie();
-            pie.setData(fake);
-
-            AnyChartView anyChartView;
-            anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyAlDrawn));
-            anyChartView.setChart(pie);
-            charts.add(anyChartView);*/
-        }
+        //TextView feedback = view.findViewById(R.id.feedBack);
+        //StringBuilder sb = new StringBuilder().append(GraphSettingsList.country).append(" ").append(firstCallBack);
+        //String s = sb.toString();
+        //String start = s.substring(s.indexOf("land"));
+        //feedback.setText(start);
     }
 
     @Override
-    public void callback(int newCases, int globalCases, Graph which) {
-
+    public void callback(int[] values, Graph which, boolean shouldWeFake) {
+        if (firstCallBack) {
+            anvIds.add(R.id.any_chart_view);
+            anvIds.add(R.id.any_chart_viuu);
+            firstCallBack = false;
+        }
         switch (which) {
             case PIE_NEW_VS_TOTAL:
+                if (shouldWeFake) {
+                    fakeGraph();
+                    break;
+                }
+            {
                 List<Integer> cases = new ArrayList<>();
                 String[] types = {"New", "Total"};
 
-                cases.add(newCases);
-                cases.add(globalCases);
+                cases.add(values[0]);
+                cases.add(values[1]);
 
                 List<DataEntry> data = new ArrayList<>();
                 for (int i = 0; i < cases.size(); i++)
@@ -82,31 +82,41 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 pie.setData(data);
 
                 AnyChartView anyChartView;
-                anyChartView = (AnyChartView) getView().findViewById(R.id.any_chart_view);
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(pie);
-                charts.add(anyChartView);
-                howManyAlDrawn++;
-                break;
+            }
+            break;
             case STH_OTHER:
-                List<Integer> quases = new ArrayList<>();
-                String[] typoes = {"New", "Total"};
+                if (shouldWeFake) {
+                    fakeGraph();
+                    break;
+                }
+            {
+                List<Integer> cases = new ArrayList<>();
+                String[] types = {"Cases", "Deaths", "Recovers"};
 
-                quases.add(newCases);
-                quases.add(globalCases);
+                cases.add(values[0]);
+                cases.add(values[1]);
+                cases.add(values[2]);
 
-                List<DataEntry> dejta = new ArrayList<>();
-                for (int i = 0; i < quases.size(); i++)
-                    dejta.add(new ValueDataEntry(typoes[i], quases.get(i)));
+                List<DataEntry> data = new ArrayList<>();
+                for (int i = 0; i < cases.size(); i++)
+                    data.add(new ValueDataEntry(types[i], cases.get(i)));
 
-                Pie pai = AnyChart.pie();
-                pai.setData(dejta);
+                Cartesian cart = AnyChart.column();
+                cart.setData(data);
+                cart.getYScale().setMinimum(0.0);
 
-                AnyChartView anyChartViuu;
-                anyChartViuu = (AnyChartView) getView().findViewById(R.id.any_chart_viuu);
-                anyChartViuu.setChart(pai);
-                charts.add(anyChartViuu);
-                howManyAlDrawn++;
-                break;
+                AnyChartView anyChartView;
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+                anyChartView.setChart(cart);
+            }
+            break;
         }
+    }
+
+    private void fakeGraph() {
+        AnyChartView anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+        anyChartView.setChart(new Chart());
     }
 }

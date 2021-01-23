@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -17,17 +19,27 @@ import okhttp3.Response;
 public class CoronaApiService {
     public int globalCases;
     public int newCases;
+    public int newDeaths;
+    public int newRecovers;
     private int nc;
     private int gc;
+    private int nr;
+    private int nd;
     private String jsonBody;
     private JSONObject jsonData;
-    private CoronaApiServiceCallback apiCallback;
-    private Activity context;
+    private final CoronaApiServiceCallback apiCallback;
+    private final Activity context;
 
 
     public void set(int newCases, int globalCases){
         this.newCases = newCases;
         this.globalCases = globalCases;
+    }
+
+    public void set(int newCases, int newDeaths, int newRecovered){
+        this.newCases = newCases;
+        this.newDeaths = newDeaths;
+        this.newRecovers = newRecovered;
     }
 
     public CoronaApiService(Activity context, CoronaApiServiceCallback apiCallback) {
@@ -48,6 +60,7 @@ public class CoronaApiService {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 jsonBody = response.body().string();
+                boolean[] whichToFake = new boolean[Graph.values().length];
                 try {
                     if (GraphSettingsList.pieNewVsTotalOn) {
                         jsonData = new JSONObject(jsonBody);
@@ -56,25 +69,41 @@ public class CoronaApiService {
                                 nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
                                 gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
                                 set(nc, gc);
-                                apiCallback.callback(nc, gc, Graph.PIE_NEW_VS_TOTAL);
+                                int[] result = {nc, gc};
+                                apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false);
                                 break;
                             }
                         }
+                        whichToFake[0] = false;
+                    } else {
+                        whichToFake[0] = true;
                     }
+
                     if (GraphSettingsList.someOtherChartOn) {
                         jsonData = new JSONObject(jsonBody);
                         for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
                             if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
                                 nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
-                                gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
-                                set(nc, gc);
-                                apiCallback.callback(nc, gc, Graph.STH_OTHER);
+                                nd = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewDeaths"));
+                                nr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewRecovered"));
+                                set(nc, nd, nr);
+                                int[] result = {nc, nd, nr};
+                                apiCallback.callback(result, Graph.STH_OTHER, false);
                                 break;
                             }
                         }
+                        whichToFake[1] = false;
+                    } else {
+                        whichToFake[1] = true;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+
+                for (int i = 0; i < whichToFake.length; i++) {
+                    if (whichToFake[i]) {
+                        apiCallback.callback(new int[]{0}, Graph.values()[i], true);
+                    }
                 }
             }
 

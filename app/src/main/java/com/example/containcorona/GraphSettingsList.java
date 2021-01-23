@@ -1,7 +1,7 @@
 package com.example.containcorona;
 
 public class GraphSettingsList {
-    public static String country = "Poland";
+    public static String country = "Germany";
     public static boolean someOtherChartOn = true;
     public static boolean pieNewVsTotalOn = true;
 }
