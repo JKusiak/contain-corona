@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-
 public class CountriesListAdapter extends ArrayAdapter{
     private String[] countryNames;
     private Integer[] imageid;
@@ -28,7 +27,7 @@ public class CountriesListAdapter extends ArrayAdapter{
         View row = convertView;
         LayoutInflater inflater = context.getLayoutInflater();
 
-        if(convertView==null)
+        if (convertView==null)
             row = inflater.inflate(R.layout.row_countries, null, true);
 
         TextView textViewCountry = (TextView) row.findViewById(R.id.countryName);
@@ -36,15 +35,29 @@ public class CountriesListAdapter extends ArrayAdapter{
         textViewCountry.setFocusable(true);
         textViewCountry.setText(countryNames[position]);
         textViewCountry.setCompoundDrawablesWithIntrinsicBounds(imageid[position], 0, 0, 0);
-        row.setBackgroundResource(R.drawable.box_unclicked);
-        if (countryNames[position] == chosenCountry)
+
+        refreshAllCountries(parent);
 
         textViewCountry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 chosenCountry.setChosenCountry(countryNames[position]);
+                refreshAllCountries(parent);
             }
         });
 
         return row;
+    }
+
+
+    public void refreshAllCountries(ViewGroup listOfCountries) {
+        for(int i=0; i < listOfCountries.getChildCount(); i++) {
+            View row = listOfCountries.getChildAt(i);
+            TextView textView = row.findViewById(R.id.countryName);
+            if (chosenCountry.getChosenCountry().equals(textView.getText().toString())) {
+                textView.setBackgroundResource(R.drawable.box_clicked);
+            } else {
+                textView.setBackgroundResource(R.drawable.box_unclicked);
+            }
+        }
     }
 }

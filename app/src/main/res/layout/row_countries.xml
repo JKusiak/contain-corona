@@ -9,7 +9,7 @@
        android:id="@+id/countryName"
        android:layout_width="333dp"
        android:layout_height="41dp"
-        android:background="@drawable/box_selector"
+        android:background="@drawable/box_unclicked"
        android:layout_marginTop="20dp"
        android:layout_gravity="center_horizontal"
        android:clickable="true"

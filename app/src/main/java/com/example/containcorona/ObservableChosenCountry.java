@@ -16,5 +16,4 @@ public class ObservableChosenCountry extends Observable implements Serializable 
         this.hasChanged();
         this.notifyObservers(country);
     }
-
 }

@@ -8,14 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.containcorona.CountriesListAdapter;
 import com.example.containcorona.ObservableChosenCountry;
 import com.example.containcorona.R;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,6 +21,8 @@ public class CountriesFragment extends Fragment implements Observer {
     public SharedPreferences appPreferences;
     public SharedPreferences.Editor editor;
     public ObservableChosenCountry observableChosenCountry;
+    public ListView listView;
+    CountriesListAdapter countryListAdapter;
 
     private String countryNames[] = {
             "Worldwide",
@@ -81,12 +80,13 @@ public class CountriesFragment extends Fragment implements Observer {
         observableChosenCountry = new ObservableChosenCountry();
         observableChosenCountry.addObserver(this);
 
-        ListView listView = (ListView) view.findViewById(R.id.countries_list);
-        CountriesListAdapter countryListAdapter = new CountriesListAdapter(getActivity(), countryNames, imageid, observableChosenCountry);
+        observableChosenCountry.setChosenCountry(appPreferences.getString("currentCountryName", "Poland"));
+
+        listView = (ListView) view.findViewById(R.id.countries_list);
+        countryListAdapter = new CountriesListAdapter(getActivity(), countryNames, imageid, observableChosenCountry);
 
         listView.setAdapter(countryListAdapter);
         listView.setFocusable(false);
-
     }
 
     @Override
