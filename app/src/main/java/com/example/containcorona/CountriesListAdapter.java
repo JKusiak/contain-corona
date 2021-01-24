@@ -1,29 +1,26 @@
 package com.example.containcorona;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.containcorona.fragments.CountriesFragment;
 
 
-public class CountriesListAdapter extends ArrayAdapter {
+
+public class CountriesListAdapter extends ArrayAdapter{
     private String[] countryNames;
     private Integer[] imageid;
     private Activity context;
-    public SharedPreferences.Editor editor;
+    private ObservableChosenCountry chosenCountry;
 
-    public CountriesListAdapter(Activity context, String[] countryNames, Integer[] imageid) {
+    public CountriesListAdapter(Activity context, String[] countryNames, Integer[] imageid, ObservableChosenCountry chosenCountry) {
         super(context, R.layout.row_countries, countryNames);
         this.context = context;
         this.countryNames = countryNames;
         this.imageid = imageid;
-
+        this.chosenCountry = chosenCountry;
     }
 
     @Override
@@ -39,16 +36,12 @@ public class CountriesListAdapter extends ArrayAdapter {
         textViewCountry.setFocusable(true);
         textViewCountry.setText(countryNames[position]);
         textViewCountry.setCompoundDrawablesWithIntrinsicBounds(imageid[position], 0, 0, 0);
-        //TODO MAKE IT CHANGE BACKGROUND COLOR ON CLICK FFS
-//        textViewCountry.setBackground(context.getResources().getDrawable(R.drawable.box_selector));
+        row.setBackgroundResource(R.drawable.box_unclicked);
+        if (countryNames[position] == chosenCountry)
 
         textViewCountry.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context,"You Selected "+ countryNames[position] + " as Country", Toast.LENGTH_SHORT).show();
-                GraphSettingsList.country = countryNames[position];
-//                editor = CountriesFragment.appPreferences.edit();
-//                editor.putString("currentCountryName", countryNames[position]);
-//                editor.apply();
+                chosenCountry.setChosenCountry(countryNames[position]);
             }
         });
 
