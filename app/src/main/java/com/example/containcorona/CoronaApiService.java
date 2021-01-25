@@ -1,6 +1,8 @@
 package com.example.containcorona;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -31,9 +33,10 @@ public class CoronaApiService {
     private JSONObject jsonData;
     private final CoronaApiServiceCallback apiCallback;
     private final Activity context;
+    public SharedPreferences appPreferences;
+
 
     private boolean cropWorldWide = true;
-
 
     public void set1(int newCases, int globalCases){
         this.newCases = newCases;
@@ -54,6 +57,7 @@ public class CoronaApiService {
     public CoronaApiService(Activity context, CoronaApiServiceCallback apiCallback) {
         this.context = context;
         this.apiCallback = apiCallback;
+        this.appPreferences = context.getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
     }
 
     OkHttpClient client = new OkHttpClient();
@@ -69,23 +73,13 @@ public class CoronaApiService {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 jsonBody = response.body().string();
-                if (cropWorldWide) {/*
-                //here I try and fail to include the global stats as a country
-                    String jsonStart = jsonBody.substring(0, jsonBody.indexOf("Message") + 12);
-                    String jsonMain = jsonBody.substring(jsonBody.indexOf("Countries") - 1);
-                    String jsonMainAfters = jsonMain.substring(13);
-                    String jsonMainHeader = jsonMain.substring(0, 14);
-                    String jsonGlob = jsonBody.substring(jsonBody.indexOf("Global") - 1, jsonBody.indexOf("Countries") - 1 );
-
-                    StringBuilder sb = new StringBuilder().append(jsonStart).append(jsonMainHeader);
-                    GraphSettingsList.check = sb.toString();*/
-                }
                 boolean[] whichToFake = new boolean[Graph.values().length];
+                String selectedCountry = appPreferences.getString("currentCountryName", "Poland");
                 try {
-                    if (GraphSettingsList.pieNewVsTotalOn) {
+                    if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
                         for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
+                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
                                 nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
                                 gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
                                 set1(nc, gc);
@@ -99,10 +93,10 @@ public class CoronaApiService {
                         whichToFake[0] = true;
                     }
 
-                    if (GraphSettingsList.columnNewsOn) {
+                    if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
                         for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
+                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
                                 nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
                                 nd = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewDeaths"));
                                 nr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewRecovered"));
@@ -116,10 +110,10 @@ public class CoronaApiService {
                     } else {
                         whichToFake[1] = true;
                     }
-                    if (GraphSettingsList.sthOtherOn) {
+                    if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
                         for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(GraphSettingsList.country)) {
+                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
                                 td = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalDeaths"));
                                 tr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalRecovered"));
                                 set3(td, tr);

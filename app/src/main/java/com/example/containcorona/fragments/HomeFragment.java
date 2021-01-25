@@ -1,5 +1,7 @@
 package com.example.containcorona.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
     private final ArrayList<Integer> anvIds = new ArrayList<>();
     private boolean firstCallBack = true;
     private int howManyDrawn = 0;
+    //public SharedPreferences appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,10 +55,10 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         String start = GraphSettingsList.check;
         feedback.setText(start);
 
-        int howManyDrawnHere = 0;
-        if (GraphSettingsList.pieNewVsTotalOn) howManyDrawnHere++;
-        if (GraphSettingsList.columnNewsOn) howManyDrawnHere++;
-        if (GraphSettingsList.sthOtherOn) howManyDrawnHere++;
+        int howManyDrawnHere = 0;/*
+        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) howManyDrawnHere++;
+        if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) howManyDrawnHere++;
+        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) howManyDrawnHere++;*/
 /*
         ScrollView layout = view.findViewById(R.id.chart_scroll_view);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
