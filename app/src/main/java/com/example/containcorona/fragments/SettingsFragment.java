@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.example.containcorona.R;
@@ -50,7 +51,6 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         notificationManager = NotificationManagerCompat.from(getActivity());
-
 
         if (view != null) {
             settingsLayout = (ConstraintLayout) getView();
@@ -97,7 +97,7 @@ public class SettingsFragment extends Fragment {
 
     public void showImportantInformation(View v) {
         popupView = getLayoutInflater().inflate(R.layout.popup_important_info, null);
-        popupWindow = new PopupWindow(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow = new PopupWindow(popupView, 900, 1500, true);
 
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         popupWindow.setTouchable(true);
@@ -118,12 +118,11 @@ public class SettingsFragment extends Fragment {
 
     public void showAboutUs(View v) {
         popupView = getLayoutInflater().inflate(R.layout.popup_aboutus, null);
-        //TODO Make it not hardcoded cause its lame, also fucked up style of text
-        popupWindow = new PopupWindow(popupView, 900, 1700, true);
+        //TODO Make it not hardcoded cause its lame
+        popupWindow = new PopupWindow(popupView, 900, 1500, true);
 
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         popupWindow.setTouchable(true);
-
         TextView textAboutUs;
         textAboutUs = popupView.findViewById(R.id.aboutUsText);
         textAboutUs.setMovementMethod(new ScrollingMovementMethod());

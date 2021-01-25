@@ -1,22 +1,50 @@
 <resources>
     <string name="app_name">ContainCorona</string>
-    <string name="important_info_text">
-        Here is nothing now but will be something someday. Maybe. Hopefully
+    <string name="important_info_text"><big><b>How statistics lie</b></big>
+        \nConsider such scenario - you have come to the doctor to take a test for an illness, that affects 1% of all citizens of your town,
+        in which live about 10 000 people. You take the test and it comes positive.
+
+        \n\nNot really trying to comfort you, the doctor says, that this test are 99% accurate. Of all people that are sick 99% test positive
+        and of all healthy people 99% test negative.
+
+        \n\nHow big is a chance, that you are <i>actually sick</i>? It turns out… only about 50%.
+
+        \n\nAny person taking this problem by intuition should now scratch their head in confusion. It is because we really, really can not
+        understand probability and statistics. We recommend reading more about Bayes theorem and conditional probability as it is bit
+        too complicated to describe here.
+
+        \n\nThis is also very problematics with Covid-19 statistics. They very often try to either shock you, or belittle the problem.
+        On one hand, we have changing scale from scalar to logarithmic to flatten the curve, showing the decline when it is actually a decline
+        of an increase in number of cases.
+
+        \n\nOn the other, we have death toll counters rising each day into millions, instead of measuring the excess mortality rate, that could give
+        an understanding of an actual problem.
+
+        <big><b>\n\nSolution to misinformation</b></big>
+        \nHow to strike a balance then? In our opinion, by taking every information that includes statistics or numbers with a grain of salt.
+        Always fact checking, always trying to find a reference point or putting the data into some context. And most of all, trying to always
+        set emotions aside, as they tend not to be the best guide. We hope that after reading this, you will at least try to remember about
+        doing so… even with the statistics presented in our application ;)
     </string>
 
-    <string name="about_us_text">
-        <big><b>Who are we?</b></big>
-        <div>A group of students from Lodz University of Technology, the application you see was created as a part of our Mobile Systems course.</div>
-        <br/>
-        <big><b>What has driven us?</b></big>
-        <div>During the 2020 a lot of people (us included) developed a habit of checking the covid statistics on a daily basis, sometimes as a first thing we did after waking up instead of scrolling through social media. This acted as a source of anxiety and anger, but was still irresistibly tempting. We realized, that it was because of the engagement-inciting nature of their delivery, trying to blow out of proportion everything that can cause strong emotions.</div>
-        <br/>
-        <big><b>Why this app?</b></big>
-        <div>We know that nothing would stop the news publishers from what they are doing as they profit from increasing the engagement of their viewers. The only way to do something is proposing our own alternative. And that is what we did.</div>
-        <div>We hope the app gives you an experience not overloaded with stimulus, providing a concise, non biased insight into the development of the pandemic in different countries. Please, in addition to that read the Important Info section to improve your knowledge about recognizing misleading statistics. <strong>Stay save and well!</strong></div>
-        <br/>
-        <div><b>Authors</b></div>
-        <div><b> Mateusz Kmieciak, Juliusz Kusiak, Maciej Szulc</b></div>
+    <string name="about_us_text"><big><b>Who are we?</b></big>
+        \nA group of students from Lodz University of Technology, the application you see was created as a part of our Mobile Systems course.
+
+        <big><b>\n\nWhat has driven us?</b></big>
+        \nDuring the 2020 a lot of people (us included) developed a habit of checking the covid statistics on a daily basis,
+        sometimes as a first thing we did after waking up instead of scrolling through social media. This acted as a source of
+        anxiety and anger, but was still irresistibly tempting. We realized, that it was because of the engagement-inciting nature
+        of their delivery, trying to blow out of proportion everything that can cause strong emotions.
+
+        <big><b>\n\nWhy this app?</b></big>
+        \nWe know that nothing would stop the news publishers from what they are doing as they profit from increasing the engagement
+        of their viewers. The only way to do something is proposing our own alternative. And that is what we did.
+        We hope the app gives you an experience not overloaded with stimulus, providing a concise, non biased insight into the
+        development of the pandemic in different countries. Please, in addition to that read the <i>Important Info</i> section to improve
+        your knowledge about recognizing misleading statistics. <b>Stay save and well!</b>
+
+        <b>\n\n\nAuthors</b>
+        \nMateusz Kmieciak      Juliusz Kusiak      Maciej Szulc
     </string>
 
 
