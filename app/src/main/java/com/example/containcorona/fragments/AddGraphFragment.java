@@ -30,9 +30,13 @@ public class AddGraphFragment extends Fragment {
             CheckBox pie = getView().findViewById(R.id.pieCheck);
             pie.setChecked(true);
         }
-        if (GraphSettingsList.someOtherChartOn) {
+        if (GraphSettingsList.columnNewsOn) {
             CheckBox col = getView().findViewById(R.id.colCheck);
             col.setChecked(true);
+        }
+        if (GraphSettingsList.sthOtherOn) {
+            CheckBox bar = getView().findViewById(R.id.barCheck);
+            bar.setChecked(true);
         }
     }
 
@@ -40,8 +44,10 @@ public class AddGraphFragment extends Fragment {
     public void onDestroyView() {
         CheckBox pie = getView().findViewById(R.id.pieCheck);
         CheckBox col = getView().findViewById(R.id.colCheck);
+        CheckBox bar = getView().findViewById(R.id.barCheck);
         GraphSettingsList.pieNewVsTotalOn = pie.isChecked();
-        GraphSettingsList.someOtherChartOn = col.isChecked();
+        GraphSettingsList.columnNewsOn = col.isChecked();
+        GraphSettingsList.sthOtherOn = bar.isChecked();
         super.onDestroyView();
     }
 }
