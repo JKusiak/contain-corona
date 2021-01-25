@@ -80,7 +80,7 @@ public class CountriesFragment extends Fragment implements Observer {
         observableChosenCountry = new ObservableChosenCountry();
         observableChosenCountry.addObserver(this);
 
-        observableChosenCountry.setChosenCountry(appPreferences.getString("currentCountryName", "Poland"));
+        observableChosenCountry.setChosenCountry(appPreferences.getString("currentCountryName", "Anything"));
 
         listView = (ListView) view.findViewById(R.id.countries_list);
         countryListAdapter = new CountriesListAdapter(getActivity(), countryNames, imageid, observableChosenCountry);

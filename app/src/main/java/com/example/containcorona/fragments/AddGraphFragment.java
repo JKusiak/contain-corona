@@ -12,15 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
-import com.example.containcorona.GraphSettingsList;
 import com.example.containcorona.R;
 
 
 public class AddGraphFragment extends Fragment {
-
     public SharedPreferences appPreferences;
     public SharedPreferences.Editor editor;
+    CheckBox pie;
+    CheckBox col;
+    CheckBox bar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,15 +34,22 @@ public class AddGraphFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
 
-        CheckBox pie = getView().findViewById(R.id.pieCheck);
-        CheckBox col = getView().findViewById(R.id.colCheck);
-        CheckBox bar = getView().findViewById(R.id.barCheck);
+        pie = getView().findViewById(R.id.pieCheck);
+        col = getView().findViewById(R.id.colCheck);
+        bar = getView().findViewById(R.id.barCheck);
+
+        setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
+        setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
+        setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
+
 
         pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor = appPreferences.edit();
                 editor.putBoolean("pieNewCasesVsTotalCasesOn", isChecked);
                 editor.apply();
+
+                setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
             }
         });
 
@@ -51,6 +58,8 @@ public class AddGraphFragment extends Fragment {
                 editor = appPreferences.edit();
                 editor.putBoolean("columnNewCasesDeathsAndRecoveriesOn", isChecked);
                 editor.apply();
+
+                setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
             }
         });
 
@@ -59,28 +68,19 @@ public class AddGraphFragment extends Fragment {
                 editor = appPreferences.edit();
                 editor.putBoolean("barTotalDeathsVsRecoveriesOn", isChecked);
                 editor.apply();
+
+                setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
             }
         });
-
-        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
-            pie.setChecked(true);
-        }
-        if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
-            col.setChecked(true);
-        }
-        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
-            bar.setChecked(true);
-        }
     }
 
-    @Override
-    public void onDestroyView() {/*
-        CheckBox pie = getView().findViewById(R.id.pieCheck);
-        CheckBox col = getView().findViewById(R.id.colCheck);
-        CheckBox bar = getView().findViewById(R.id.barCheck);
-        //GraphSettingsList.pieNewVsTotalOn = pie.isChecked();
-        GraphSettingsList.columnNewsOn = col.isChecked();
-        GraphSettingsList.sthOtherOn = bar.isChecked();*/
-        super.onDestroyView();
+    public void setBoxState(CheckBox checkBox, boolean isChecked) {
+        checkBox.setChecked(isChecked);
+
+        if (isChecked){
+            checkBox.setAlpha((float)1.00);
+        } else {
+            checkBox.setAlpha((float)0.15);
+        }
     }
 }

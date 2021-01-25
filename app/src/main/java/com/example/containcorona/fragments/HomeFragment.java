@@ -54,20 +54,6 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         TextView feedback = view.findViewById(R.id.feedBack);
         String start = GraphSettingsList.check;
         feedback.setText(start);
-
-        int howManyDrawnHere = 0;/*
-        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) howManyDrawnHere++;
-        if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) howManyDrawnHere++;
-        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) howManyDrawnHere++;*/
-/*
-        ScrollView layout = view.findViewById(R.id.chart_scroll_view);
-        ViewGroup.LayoutParams params = layout.getLayoutParams();
-        int first = params.height;
-        final float scale =  getResources().getDisplayMetrics().density;
-        params.height = (int) (scale * 300 + 0.5) * howManyDrawnHere + 50;
-        int second = params.height;
-        Toast.makeText(view.getContext(),"You have " + howManyDrawnHere + " graphs, your layout was " + first + ", but now is " + second, Toast.LENGTH_LONG).show();
-        layout.setLayoutParams(params);*/
     }
 
     @Override
