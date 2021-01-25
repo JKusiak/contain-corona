@@ -1,5 +1,5 @@
 package com.example.containcorona;
 
 public interface CoronaApiServiceCallback {
-    void callback(int newCases, int globalCases, Graph which);
+    void callback(int[] values, Graph which, boolean shouldWeFake);
 }
