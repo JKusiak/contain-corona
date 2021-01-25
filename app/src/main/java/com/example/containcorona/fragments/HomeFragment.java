@@ -20,7 +20,7 @@ import com.anychart.anychart.DataEntry;
 import com.anychart.anychart.Mapping;
 import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
-//import com.example.containcorona.CoronaApiService;
+import com.example.containcorona.CoronaApiService;
 import com.example.containcorona.CoronaApiServiceCallback;
 import com.example.containcorona.Graph;
 import com.example.containcorona.GraphSettingsList;
