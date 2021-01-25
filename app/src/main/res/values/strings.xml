@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ContainCorona</string>
-    <string name="important_info_text"><big><b>How statistics lie</b></big>
+    <string name="important_info_text_1"><big><b>How statistics lie</b></big>
         \nConsider such scenario - you have come to the doctor to take a test for an illness, that affects 1% of all citizens of your town,
         in which live about 10 000 people. You take the test and it comes positive.
 
@@ -19,8 +19,9 @@
 
         \n\nOn the other, we have death toll counters rising each day into millions, instead of measuring the excess mortality rate, that could give
         an understanding of an actual problem.
+    </string>
 
-        <big><b>\n\nSolution to misinformation</b></big>
+    <string name="important_info_text_2"><big><b>\n\Be always cautious</b></big>
         \nHow to strike a balance then? In our opinion, by taking every information that includes statistics or numbers with a grain of salt.
         Always fact checking, always trying to find a reference point or putting the data into some context. And most of all, trying to always
         set emotions aside, as they tend not to be the best guide. We hope that after reading this, you will at least try to remember about

@@ -16,8 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.example.containcorona.R;
 
@@ -102,10 +102,9 @@ public class SettingsFragment extends Fragment {
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         popupWindow.setTouchable(true);
 
-        TextView textAboutStatistics;
-        textAboutStatistics = popupView.findViewById(R.id.important_info_text);
-        textAboutStatistics.setMovementMethod(new ScrollingMovementMethod());
-        textAboutStatistics.setVerticalScrollBarEnabled(false);
+        ScrollView importantInfoScroll;
+        importantInfoScroll = popupView.findViewById(R.id.important_info_scroll);
+        importantInfoScroll.setVerticalScrollBarEnabled(false);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
