@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ScrollView;
+
 import com.example.containcorona.R;
 
 
@@ -34,6 +36,10 @@ public class AddGraphFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.appPreferences = this.getActivity().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
+
+        ScrollView addGraphScroll;
+        addGraphScroll = getActivity().findViewById(R.id.add_graph_scroll);
+        addGraphScroll.setVerticalScrollBarEnabled(false);
 
         pie = getView().findViewById(R.id.pieCheck);
         col = getView().findViewById(R.id.colCheck);

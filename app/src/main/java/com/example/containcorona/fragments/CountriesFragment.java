@@ -87,6 +87,7 @@ public class CountriesFragment extends Fragment implements Observer {
 
         listView.setAdapter(countryListAdapter);
         listView.setFocusable(false);
+        listView.setVerticalScrollBarEnabled(false);
     }
 
     @Override
