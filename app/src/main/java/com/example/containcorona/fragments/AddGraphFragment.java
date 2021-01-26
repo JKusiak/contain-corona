@@ -46,19 +46,19 @@ public class AddGraphFragment extends Fragment {
         bar = getView().findViewById(R.id.barCheck);
         water = getView().findViewById(R.id.waterCheck);
 
-        setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
+        setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
         setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
-        setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
+        setBoxState(bar, appPreferences.getBoolean("barTotalCasesVsTodayCases", false));
         setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
 
 
         pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor = appPreferences.edit();
-                editor.putBoolean("pieNewCasesVsTotalCasesOn", isChecked);
+                editor.putBoolean("pieTotalDeathsVsTotalRecoveries", isChecked);
                 editor.apply();
 
-                setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
+                setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
             }
         });
 
@@ -75,10 +75,10 @@ public class AddGraphFragment extends Fragment {
         bar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor = appPreferences.edit();
-                editor.putBoolean("barTotalDeathsVsRecoveriesOn", isChecked);
+                editor.putBoolean("barTotalCasesVsTodayCases", isChecked);
                 editor.apply();
 
-                setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
+                setBoxState(bar, appPreferences.getBoolean("barTotalCasesVsTodayCases", false));
             }
         });
 

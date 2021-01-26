@@ -1,8 +1,8 @@
 package com.example.containcorona;
 
 public enum Graph {
-    PIE_NEW_VS_TOTAL,
-    COLUMN_NEWS,
-    STH_OTHER,
+    PIE_TD_VS_TR,
+    COLUMNS_TODAY,
+    BAR_TOTAL_VS_TODAY,
     WATERFALL
 }
