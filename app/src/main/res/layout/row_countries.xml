@@ -20,7 +20,7 @@
        android:textColor="@color/our_black"
        android:textSize="18sp"
        android:drawablePadding="10dp"
-       android:drawableLeft="@drawable/ic_worldwide">
+       android:drawableLeft="@drawable/ic_global">
     </TextView>
 
 </LinearLayout>
