@@ -3,9 +3,6 @@ package com.example.containcorona;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.constraintlayout.motion.widget.Debug;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -14,7 +11,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -95,9 +91,6 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[0] = false;
-                    } else {
-                        whichToFake[0] = true;
                     }
                     if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
@@ -112,9 +105,6 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[1] = false;
-                    } else {
-                        whichToFake[1] = true;
                     }
                     if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
@@ -128,18 +118,9 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[2] = false;
-                    } else {
-                        whichToFake[2] = true;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-
-                for (int i = 0; i < 3; i++) {
-                    if (whichToFake[i]) {
-                        apiCallback.callback(new int[]{0}, Graph.values()[i], true, null);
-                    }
                 }
             }
 
