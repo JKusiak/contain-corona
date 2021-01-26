@@ -43,9 +43,10 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         coronaApiService.requestData();
         appPreferences = getContext().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
         TextView message = getView().findViewById(R.id.noGraphMessage);
-        if (!appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", true)
+        if (!appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", true)
         && !appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", true)
-        && !appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", true)) {
+        && !appPreferences.getBoolean("barTotalCasesVsTodayCases", true)
+        && !appPreferences.getBoolean("waterfallOn", true)) {
             message.setText(R.string.noGraphsText);
         } else message.setText("");
     }
@@ -164,7 +165,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 for (DailySummary day : week
                 ) {
                     increases.add(day.confirmed - day.deaths - day.recovered);
-                    dates.add(day.date);
+                    dates.add(day.date.substring(0, day.date.indexOf('T')));
                 }
 
                 for (int i = 0; i < dates.size(); i++) {
