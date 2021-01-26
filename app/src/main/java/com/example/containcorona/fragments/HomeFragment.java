@@ -1,9 +1,12 @@
 package com.example.containcorona.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -28,6 +31,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
     private final ArrayList<Integer> anvIds = new ArrayList<>();
     private int howManyDrawn = 0;
+    private SharedPreferences appPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,18 +43,74 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         CoronaApiService coronaApiService = new CoronaApiService(this.getActivity(), this);
         fakeAll();
         coronaApiService.requestData();
+        appPreferences = getContext().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
+        TextView message = getView().findViewById(R.id.noGraphMessage);
+        if (!appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", true)
+        && !appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", true)
+        && !appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", true)) {
+            message.setText(R.string.noGraphsText);
+        } else message.setText("");
     }
 
     @Override
     public void callback(int[] values, Graph which, boolean shouldWeFake, ArrayList<DailySummary> week) {
         switch (which) {
+            case STH_OTHER:
+                if (shouldWeFake) {
+                    break;
+                }
+            {
+                List<Integer> cases = new ArrayList<>();
+                String[] types = {"Cases Today", "Total Cases"};
+
+                cases.add(values[0]);
+                cases.add(values[1]);
+
+                List<DataEntry> data = new ArrayList<>();
+                for (int i = 0; i < cases.size(); i++)
+                    data.add(new ValueDataEntry(types[i], cases.get(i)));
+
+                Cartesian cart = AnyChart.bar();
+                cart.setData(data);
+                cart.setPalette(new String[]{"#12100b"});
+
+                AnyChartView anyChartView;
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+                anyChartView.setChart(cart);
+            }
+            break;
+            case COLUMN_NEWS:
+                if (shouldWeFake) {
+                    break;
+                }
+            {
+                List<Integer> cases = new ArrayList<>();
+                String[] types = {"Cases Today", "Deaths Today", "Recoveries Today"};
+
+                cases.add(values[0]);
+                cases.add(values[1]);
+                cases.add(values[2]);
+
+                List<DataEntry> data = new ArrayList<>();
+                for (int i = 0; i < cases.size(); i++)
+                    data.add(new ValueDataEntry(types[i], cases.get(i)));
+
+                Cartesian cart = AnyChart.column();
+                cart.setData(data);
+                cart.setPalette(new String[]{"#12100b"});
+
+                AnyChartView anyChartView;
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+                anyChartView.setChart(cart);
+            }
+            break;
             case PIE_NEW_VS_TOTAL:
                 if (shouldWeFake) {
                     break;
                 }
             {
                 List<Integer> cases = new ArrayList<>();
-                String[] types = {"New", "Total"};
+                String[] types = {"Total Deaths", "Total Recoveries"};
 
                 cases.add(values[0]);
                 cases.add(values[1]);
@@ -67,55 +127,6 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(pie);
-            }
-            break;
-            case COLUMN_NEWS:
-                if (shouldWeFake) {
-                    break;
-                }
-            {
-                List<Integer> cases = new ArrayList<>();
-                String[] types = {"New Cases", "New Deaths", "New Recovers"};
-
-                cases.add(values[0]);
-                cases.add(values[1]);
-                cases.add(values[2]);
-
-                List<DataEntry> data = new ArrayList<>();
-                for (int i = 0; i < cases.size(); i++)
-                    data.add(new ValueDataEntry(types[i], cases.get(i)));
-
-                Cartesian cart = AnyChart.column();
-                cart.setData(data);
-                cart.getYScale().setMinimum(0.0);
-
-                AnyChartView anyChartView;
-                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
-                anyChartView.setChart(cart);
-            }
-            break;
-            case STH_OTHER:
-                if (shouldWeFake) {
-                    break;
-                }
-            {
-                List<Integer> cases = new ArrayList<>();
-                String[] types = {"Total Deaths", "Total Recovers"};
-
-                cases.add(values[0]);
-                cases.add(values[1]);
-
-                List<DataEntry> data = new ArrayList<>();
-                for (int i = 0; i < cases.size(); i++)
-                    data.add(new ValueDataEntry(types[i], cases.get(i)));
-
-                Cartesian cart = AnyChart.bar();
-                cart.setData(data);
-                cart.setPalette(new String[]{"#12100b"});
-
-                AnyChartView anyChartView;
-                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
-                anyChartView.setChart(cart);
             }
             break;
             case WATERFALL:

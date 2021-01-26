@@ -78,52 +78,86 @@ public class CoronaApiService {
                 jsonBody = response.body().string();
                 boolean[] whichToFake = new boolean[Graph.values().length];
                 String selectedCountry = appPreferences.getString("currentCountryName", "Poland");
-                try {
-                    if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
-                        jsonData = new JSONObject(jsonBody);
-                        for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
-                                nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
-                                gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
-                                set1(nc, gc);
-                                int[] result = {nc, gc};
-                                apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false, null);
-                                break;
+                if (!selectedCountry.equals("Global")) {
+                    try {
+                        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                            for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                                if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
+                                    nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
+                                    gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
+                                    set1(nc, gc);
+                                    int[] result = {nc, gc};
+                                    apiCallback.callback(result, Graph.STH_OTHER, false, null);
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
-                        jsonData = new JSONObject(jsonBody);
-                        for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
-                                nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
-                                nd = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewDeaths"));
-                                nr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewRecovered"));
-                                set2(nc, nd, nr);
-                                int[] result = {nc, nd, nr};
-                                apiCallback.callback(result, Graph.COLUMN_NEWS, false, null);
-                                break;
+                        if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                            for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                                if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
+                                    nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
+                                    nd = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewDeaths"));
+                                    nr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewRecovered"));
+                                    set2(nc, nd, nr);
+                                    int[] result = {nc, nd, nr};
+                                    apiCallback.callback(result, Graph.COLUMN_NEWS, false, null);
+                                    break;
+                                }
                             }
                         }
-                    }
-                    if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
-                        jsonData = new JSONObject(jsonBody);
-                        for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                            if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
-                                td = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalDeaths"));
-                                tr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalRecovered"));
-                                set3(td, tr);
-                                int[] result = {td, tr};
-                                apiCallback.callback(result, Graph.STH_OTHER, false, null);
-                                break;
+                        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                            for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                                if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
+                                    td = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalDeaths"));
+                                    tr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalRecovered"));
+                                    set3(td, tr);
+                                    int[] result = {td, tr};
+                                    apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false, null);
+                                    break;
+                                }
                             }
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }
+                else {
+                    try {
+                        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                                    nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
+                                    gc = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalConfirmed"));
+                                    set1(nc, gc);
+                                    int[] result = {nc, gc};
+                                    apiCallback.callback(result, Graph.STH_OTHER, false, null);
+                        }
+                        if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                                    nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
+                                    nd = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewDeaths"));
+                                    nr = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewRecovered"));
+                                    set2(nc, nd, nr);
+                                    int[] result = {nc, nd, nr};
+                                    apiCallback.callback(result, Graph.COLUMN_NEWS, false, null);
+                        }
+                        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                                    td = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalDeaths"));
+                                    tr = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalRecovered"));
+                                    set3(td, tr);
+                                    int[] result = {td, tr};
+                                    apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false, null);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
             }
