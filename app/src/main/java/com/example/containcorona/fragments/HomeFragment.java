@@ -24,6 +24,7 @@ import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
 import com.example.containcorona.CoronaApiService;
 import com.example.containcorona.CoronaApiServiceCallback;
+import com.example.containcorona.DailySummary;
 import com.example.containcorona.Graph;
 import com.example.containcorona.GraphSettingsList;
 import com.example.containcorona.R;
@@ -43,21 +44,16 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-		CoronaApiService coronaApiService = new CoronaApiService(this.getActivity(), this);
-		coronaApiService.requestData();
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        TextView feedback = view.findViewById(R.id.feedBack);
-        String start = GraphSettingsList.check;
-        feedback.setText(start);
+        CoronaApiService coronaApiService = new CoronaApiService(this.getActivity(), this);
+        coronaApiService.requestData();
     }
 
     @Override
-    public void callback(int[] values, Graph which, boolean shouldWeFake) {
+    public void callback(int[] values, Graph which, boolean shouldWeFake, ArrayList<DailySummary> week) {
         if (firstCallBack) {
             anvIds.add(R.id.any_chart_view);
             anvIds.add(R.id.any_chart_viuu);

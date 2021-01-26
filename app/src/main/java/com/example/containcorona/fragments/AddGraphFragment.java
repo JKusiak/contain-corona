@@ -21,6 +21,7 @@ public class AddGraphFragment extends Fragment {
     CheckBox pie;
     CheckBox col;
     CheckBox bar;
+    CheckBox water;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,10 +38,12 @@ public class AddGraphFragment extends Fragment {
         pie = getView().findViewById(R.id.pieCheck);
         col = getView().findViewById(R.id.colCheck);
         bar = getView().findViewById(R.id.barCheck);
+        water = getView().findViewById(R.id.waterCheck);
 
         setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
         setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
         setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
+        setBoxState(bar, appPreferences.getBoolean("waterfallOn", false));
 
 
         pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -70,6 +73,16 @@ public class AddGraphFragment extends Fragment {
                 editor.apply();
 
                 setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
+            }
+        });
+
+        water.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = appPreferences.edit();
+                editor.putBoolean("waterfallOn", isChecked);
+                editor.apply();
+
+                setBoxState(bar, appPreferences.getBoolean("waterfallOn", false));
             }
         });
     }
