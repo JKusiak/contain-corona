@@ -121,7 +121,6 @@ public class  CountriesFragment extends Fragment implements Observer {
             editor = appPreferences.edit();
             editor.putString("currentCountryName", (String) observableChosenCountry.getChosenCountry());
             editor.apply();
-            Toast.makeText(getActivity(),"You Selected "+ (String) observableChosenCountry.getChosenCountry() + " as Country", Toast.LENGTH_SHORT).show();
         }
     }
 }
