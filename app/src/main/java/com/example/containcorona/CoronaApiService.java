@@ -76,7 +76,6 @@ public class CoronaApiService {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 jsonBody = response.body().string();
-                boolean[] whichToFake = new boolean[Graph.values().length];
                 String selectedCountry = appPreferences.getString("currentCountryName", "Poland");
                 try {
                     if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
@@ -139,9 +138,9 @@ public class CoronaApiService {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
                     if (appPreferences.getBoolean("waterfallOn", false)) {
-                        countryData = new JSONArray(response.body());
+                        countryData = new JSONArray(response.body().string());
+                        ArrayList<DailySummary> week = new ArrayList<>();
                         for (int i = countryData.length() - 7; i < countryData.length(); i++) {
-                            ArrayList<DailySummary> week = new ArrayList<>();
                             JSONObject daySummaryJSON = countryData.getJSONObject(i);
                             DailySummary daySummary = new DailySummary();
                             daySummary.confirmed = daySummaryJSON.getInt("Confirmed");
@@ -149,8 +148,8 @@ public class CoronaApiService {
                             daySummary.recovered = daySummaryJSON.getInt("Recovered");
                             daySummary.active = daySummaryJSON.getInt("Active");
                             daySummary.date = daySummaryJSON.getString("Date");
-                            apiCallback.callback(null, Graph.WATERFALL, false, week);
                         }
+                        apiCallback.callback(null, Graph.WATERFALL, false, week);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
