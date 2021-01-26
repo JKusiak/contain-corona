@@ -148,6 +148,7 @@ public class CoronaApiService {
                             daySummary.recovered = daySummaryJSON.getInt("Recovered");
                             daySummary.active = daySummaryJSON.getInt("Active");
                             daySummary.date = daySummaryJSON.getString("Date");
+                            week.add(daySummary);
                         }
                         apiCallback.callback(null, Graph.WATERFALL, false, week);
                     }

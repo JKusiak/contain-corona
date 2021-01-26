@@ -149,18 +149,18 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 String[] daten = {"NOV", "DEC", "JAN", "FEB", "MAR"};
 
                 for (int i = 0; i < valuen.length; i++) {
-                    data.add(new ValueDataEntry(daten[i], valuen[i]));
+                    //data.add(new ValueDataEntry(daten[i], valuen[i]));
                 }
 
-                /*for (DailySummary day : week
+                for (DailySummary day : week
                 ) {
                     increases.add(day.confirmed - day.deaths - day.recovered);
                     dates.add(day.date);
                 }
 
-                for (int i = 0; i < values.length; i++) {
+                for (int i = 0; i < dates.size(); i++) {
                     data.add(new ValueDataEntry(dates.get(i), increases.get(i)));
-                }*/
+                }
                 DataEntry end = new DataEntry();
                 end.setValue("x", "NOW");
                 end.setValue("isTotal", true);
