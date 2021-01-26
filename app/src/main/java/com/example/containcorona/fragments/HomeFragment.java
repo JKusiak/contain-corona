@@ -1,5 +1,6 @@
 package com.example.containcorona.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -51,9 +52,35 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         } else message.setText("");
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void callback(int[] values, Graph which, boolean shouldWeFake, ArrayList<DailySummary> week) {
         switch (which) {
+            case HEADER:
+                if (shouldWeFake) {
+                    break;
+                }
+            {
+                TextView header = getView().findViewById(R.id.header);
+                TextView header_second = getView().findViewById(R.id.header_scnd);
+                double changeYesterday = week.get(1).confirmed - week.get(0).confirmed;
+                double changeToday = week.get(2).confirmed - week.get(1).confirmed;
+                double dpercentage = ((changeToday - changeYesterday) / changeYesterday) * 100;
+                int percentage = (int) dpercentage;
+
+                header.setText(String.format("New cases in %s : %d,",
+                        new Object[]{appPreferences.getString("currentCountryName", "Global"),
+                                week.get(2).confirmed - week.get(1).confirmed}));
+
+                if (percentage > 0) {
+                    header_second.setText(percentage + "% more than yesterday.");
+                }
+                else {
+                    percentage *= -1;
+                    header_second.setText(percentage + "% less than yesterday.");
+                }
+            }
+            break;
             case BAR_TOTAL_VS_TODAY:
                 if (shouldWeFake) {
                     break;

@@ -171,15 +171,30 @@ public class CoronaApiService {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 try {
+                    countryData = new JSONArray(response.body().string());
+                    {
+                        ArrayList<DailySummary> todayEnYesterday = new ArrayList<>();
+                        for (int i = countryData.length() - 3; i < countryData.length(); i++) {
+                            JSONObject daySummaryJSON = countryData.getJSONObject(i);
+                            DailySummary daySummary = new DailySummary();
+                            daySummary.confirmed = daySummaryJSON.getInt("Confirmed");
+                            //daySummary.deaths = daySummaryJSON.getInt("Deaths");
+                            //daySummary.recovered = daySummaryJSON.getInt("Recovered");
+                            //daySummary.active = daySummaryJSON.getInt("Active");
+                            daySummary.date = daySummaryJSON.getString("Date");
+                            todayEnYesterday.add(daySummary);
+                        }
+                        apiCallback.callback(null, Graph.HEADER, false, todayEnYesterday);
+                    }
+
                     if (appPreferences.getBoolean("waterfallOn", false)) {
-                        countryData = new JSONArray(response.body().string());
                         ArrayList<DailySummary> week = new ArrayList<>();
                         for (int i = countryData.length() - 7; i < countryData.length(); i++) {
                             JSONObject daySummaryJSON = countryData.getJSONObject(i);
                             DailySummary daySummary = new DailySummary();
-                            daySummary.confirmed = daySummaryJSON.getInt("Confirmed");
-                            daySummary.deaths = daySummaryJSON.getInt("Deaths");
-                            daySummary.recovered = daySummaryJSON.getInt("Recovered");
+                            //daySummary.confirmed = daySummaryJSON.getInt("Confirmed");
+                            //daySummary.deaths = daySummaryJSON.getInt("Deaths");
+                            //daySummary.recovered = daySummaryJSON.getInt("Recovered");
                             daySummary.active = daySummaryJSON.getInt("Active");
                             daySummary.date = daySummaryJSON.getString("Date");
                             week.add(daySummary);
