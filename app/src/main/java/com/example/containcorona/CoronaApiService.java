@@ -79,19 +79,6 @@ public class CoronaApiService {
                 String selectedCountry = appPreferences.getString("currentCountryName", "Poland");
                 if (!selectedCountry.equals("Global")) {
                     try {
-                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
-                            jsonData = new JSONObject(jsonBody);
-                            for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
-                                if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
-                                    nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
-                                    gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
-                                    set1(nc, gc);
-                                    int[] result = {nc, gc};
-                                    apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
-                                    break;
-                                }
-                            }
-                        }
                         if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
                             jsonData = new JSONObject(jsonBody);
                             for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
@@ -119,6 +106,19 @@ public class CoronaApiService {
                                 }
                             }
                         }
+                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                            for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
+                                if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
+                                    nc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewConfirmed"));
+                                    gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
+                                    set1(nc, gc);
+                                    int[] result = {nc, gc};
+                                    apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
+                                    break;
+                                }
+                            }
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -126,14 +126,6 @@ public class CoronaApiService {
                 }
                 else {
                     try {
-                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
-                            jsonData = new JSONObject(jsonBody);
-                                    nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
-                                    gc = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalConfirmed"));
-                                    set1(nc, gc);
-                                    int[] result = {nc, gc};
-                                    apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
-                        }
                         if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
                             jsonData = new JSONObject(jsonBody);
                                     nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
@@ -151,7 +143,14 @@ public class CoronaApiService {
                                     int[] result = {td, tr};
                                     apiCallback.callback(result, Graph.PIE_TD_VS_TR, false, null);
                         }
-
+                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
+                            jsonData = new JSONObject(jsonBody);
+                            nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
+                            gc = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalConfirmed"));
+                            set1(nc, gc);
+                            int[] result = {nc, gc};
+                            apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -214,7 +213,6 @@ public class CoronaApiService {
                             daySummary.date = daySummaryJSON.getString("Date");
                             week.add(daySummary);
                         }
-
                         apiCallback.callback(null, Graph.LINE_ACCELERATION, false, week);
                     }
                 } catch (JSONException e) {

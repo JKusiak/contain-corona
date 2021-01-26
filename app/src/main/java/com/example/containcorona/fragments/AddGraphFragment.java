@@ -42,28 +42,18 @@ public class AddGraphFragment extends Fragment {
         addGraphScroll = getActivity().findViewById(R.id.add_graph_scroll);
         addGraphScroll.setVerticalScrollBarEnabled(false);
 
-        pie = getView().findViewById(R.id.pieCheck);
         col = getView().findViewById(R.id.colCheck);
+        pie = getView().findViewById(R.id.pieCheck);
         bar = getView().findViewById(R.id.barCheck);
         water = getView().findViewById(R.id.waterCheck);
         acceleration = getView().findViewById(R.id.accelerationCheck);
 
-        setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
         setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
+        setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
         setBoxState(bar, appPreferences.getBoolean("barTotalCasesVsTodayCases", false));
         setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
         setBoxState(acceleration, appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false));
 
-
-        pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                editor = appPreferences.edit();
-                editor.putBoolean("pieTotalDeathsVsTotalRecoveries", isChecked);
-                editor.apply();
-
-                setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
-            }
-        });
 
         col.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,6 +62,16 @@ public class AddGraphFragment extends Fragment {
                 editor.apply();
 
                 setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
+            }
+        });
+
+        pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = appPreferences.edit();
+                editor.putBoolean("pieTotalDeathsVsTotalRecoveries", isChecked);
+                editor.apply();
+
+                setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
             }
         });
 

@@ -111,6 +111,8 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 cart.setData(data);
                 cart.setPalette(new String[]{"#12100b"});
 
+                cart.setTitle("Today vs all data");
+
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(cart);
@@ -136,6 +138,8 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 cart.setData(data);
                 cart.setPalette(new String[]{"#12100b"});
 
+                cart.setTitle("New daily data");
+
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(cart);
@@ -160,6 +164,8 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 pie.setData(data);
                 pie.explodeSlices(true);
                 pie.setPalette(new String[]{"#12100b", "#e52629"});
+
+                pie.setTitle("Deceased vs recovered");
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
@@ -212,6 +218,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 data.add(end);
 
                 waterfall.data(data);
+                waterfall.setTitle("Change in active cases");
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
@@ -244,6 +251,8 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
                 line.setData(data);
                 line.setPalette(new String[]{"#12100b", "#e52629"});
+
+                line.setTitle("New cases growth speed");
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
