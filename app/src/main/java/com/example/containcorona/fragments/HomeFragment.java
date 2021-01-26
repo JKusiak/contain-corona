@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -45,7 +46,13 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         CoronaApiService coronaApiService = new CoronaApiService(this.getActivity(), this);
         fakeAll();
         coronaApiService.requestData();
+
+        ScrollView chart_scroll_view;
+        chart_scroll_view = getActivity().findViewById(R.id.chart_scroll_view);
+        chart_scroll_view.setVerticalScrollBarEnabled(false);
+
         appPreferences = getContext().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
+
         TextView message = getView().findViewById(R.id.noGraphMessage);
         if (!appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", true)
                 && !appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", true)
@@ -72,15 +79,16 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 double dpercentage = ((changeToday - changeYesterday) / changeYesterday) * 100;
                 int percentage = (int) dpercentage;
 
-                header.setText(String.format("New cases in %s : %d,",
+                header.setText(String.format("New cases in %s : %d",
                         new Object[]{appPreferences.getString("currentCountryName", "Global"),
                                 week.get(2).confirmed - week.get(1).confirmed}));
 
                 if (percentage > 0) {
-                    header_second.setText(percentage + "% more than yesterday.");
-                } else {
+                    header_second.setText(percentage + "% more than yesterday");
+                }
+                else {
                     percentage *= -1;
-                    header_second.setText(percentage + "% less than yesterday.");
+                    header_second.setText(percentage + "% less than yesterday");
                 }
             }
             break;

@@ -22,18 +22,25 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/header_scnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:background="@drawable/box_info_cases"
+                android:paddingBottom="25dp"
+                android:layout_marginBottom="75dp"/>
 
             <com.anychart.anychart.AnyChartView
                 android:id="@+id/any_chart_view"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_marginBottom="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +50,7 @@
                 android:id="@+id/any_chart_viuu"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_marginBottom="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +60,7 @@
                 android:id="@+id/any_chart_view3"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_marginBottom="75dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +70,7 @@
                 android:id="@+id/any_chart_view4"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,9 +84,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </LinearLayout>
-
     </ScrollView>
 
     <TextView
