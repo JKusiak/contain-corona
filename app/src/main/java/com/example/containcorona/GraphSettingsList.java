@@ -5,7 +5,6 @@ public class GraphSettingsList {
     public static boolean columnNewsOn = false;
     public static boolean pieNewVsTotalOn = true;
     public static boolean sthOtherOn = false;
-    public static String check = "";
 }
 
 

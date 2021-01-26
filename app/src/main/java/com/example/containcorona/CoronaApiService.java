@@ -88,9 +88,6 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[0] = false;
-                    } else {
-                        whichToFake[0] = true;
                     }
 
                     if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
@@ -106,9 +103,6 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[1] = false;
-                    } else {
-                        whichToFake[1] = true;
                     }
                     if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
                         jsonData = new JSONObject(jsonBody);
@@ -122,18 +116,9 @@ public class CoronaApiService {
                                 break;
                             }
                         }
-                        whichToFake[2] = false;
-                    } else {
-                        whichToFake[2] = true;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-
-                for (int i = 0; i < whichToFake.length; i++) {
-                    if (whichToFake[i]) {
-                        apiCallback.callback(new int[]{0}, Graph.values()[i], true);
-                    }
                 }
             }
 
