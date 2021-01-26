@@ -151,8 +151,6 @@ public class CoronaApiService {
                             daySummary.date = daySummaryJSON.getString("Date");
                             apiCallback.callback(null, Graph.WATERFALL, false, week);
                         }
-                    } else {
-                        apiCallback.callback(new int[]{0}, Graph.WATERFALL, true, null);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

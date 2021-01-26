@@ -11,6 +11,7 @@ import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
 import com.anychart.anychart.Chart;
+import com.anychart.anychart.ChartsWaterfall;
 import com.anychart.anychart.DataEntry;
 import com.anychart.anychart.Pie;
 import com.anychart.anychart.ValueDataEntry;
@@ -60,6 +61,8 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
                 Pie pie = AnyChart.pie();
                 pie.setData(data);
+                pie.explodeSlices(true);
+                pie.setPalette(new String[] { "#12100b", "#e52629"});
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
@@ -108,12 +111,67 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
                 Cartesian cart = AnyChart.bar();
                 cart.setData(data);
+                cart.setPalette(new String[]{"#12100b"});
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(cart);
             }
             break;
+            case WATERFALL:
+                if (shouldWeFake) {
+                    break;
+                }
+            {
+                ChartsWaterfall waterfall = AnyChart.waterfall();
+                waterfall.getYScale().setMinimum(0d);
+                waterfall.setLabels(true);
+                waterfall.getGetSeries(0.0).fallingFill("#12100b", 1.0);
+                waterfall.getGetSeries(0.0).risingFill("#e52629", 1.0);
+                waterfall.getLabels().setFormat(
+                        "function() {\n" +
+                                "      if (this['isTotal']) {\n" +
+                                "        return anychart.format.number(this.absolute, {\n" +
+                                "          scale: true\n" +
+                                "        })\n" +
+                                "      }\n" +
+                                "\n" +
+                                "      return anychart.format.number(this.value, {\n" +
+                                "        scale: true\n" +
+                                "      })\n" +
+                                "    }");
+
+                List<DataEntry> data = new ArrayList<>();
+                List<Integer> increases = new ArrayList<>();
+                List<String> dates = new ArrayList<>();
+
+                int[] valuen = {2000, 500, -680, 600, -30};
+                String[] daten = {"NOV", "DEC", "JAN", "FEB", "MAR"};
+
+                for (int i = 0; i < valuen.length; i++) {
+                    data.add(new ValueDataEntry(daten[i], valuen[i]));
+                }
+
+                /*for (DailySummary day : week
+                ) {
+                    increases.add(day.confirmed - day.deaths - day.recovered);
+                    dates.add(day.date);
+                }
+
+                for (int i = 0; i < values.length; i++) {
+                    data.add(new ValueDataEntry(dates.get(i), increases.get(i)));
+                }*/
+                DataEntry end = new DataEntry();
+                end.setValue("x", "NOW");
+                end.setValue("isTotal", true);
+                data.add(end);
+
+                waterfall.data(data);
+
+                AnyChartView anyChartView;
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+                anyChartView.setChart(waterfall);
+            }
         }
     }
 
@@ -121,6 +179,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         anvIds.add(R.id.any_chart_view);
         anvIds.add(R.id.any_chart_viuu);
         anvIds.add(R.id.any_chart_view3);
+        anvIds.add(R.id.any_chart_view4);
 
         for (int i = 0; i < anvIds.size(); i++) {
             fakeGraph(i);

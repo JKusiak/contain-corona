@@ -3,16 +3,16 @@ package com.example.containcorona.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.containcorona.R;
 
@@ -49,7 +49,7 @@ public class AddGraphFragment extends Fragment {
         setBoxState(pie, appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false));
         setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
         setBoxState(bar, appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false));
-        setBoxState(bar, appPreferences.getBoolean("waterfallOn", false));
+        setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
 
 
         pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -88,7 +88,7 @@ public class AddGraphFragment extends Fragment {
                 editor.putBoolean("waterfallOn", isChecked);
                 editor.apply();
 
-                setBoxState(bar, appPreferences.getBoolean("waterfallOn", false));
+                setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
             }
         });
     }
