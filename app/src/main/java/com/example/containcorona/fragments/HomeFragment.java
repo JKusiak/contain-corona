@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
     @Override
     public void callback(int[] values, Graph which, boolean shouldWeFake, ArrayList<DailySummary> week) {
         switch (which) {
-            case STH_OTHER:
+            case BAR_TOTAL_VS_TODAY:
                 if (shouldWeFake) {
                     break;
                 }
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 anyChartView.setChart(cart);
             }
             break;
-            case COLUMN_NEWS:
+            case COLUMNS_TODAY:
                 if (shouldWeFake) {
                     break;
                 }
@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 anyChartView.setChart(cart);
             }
             break;
-            case PIE_NEW_VS_TOTAL:
+            case PIE_TD_VS_TR:
                 if (shouldWeFake) {
                     break;
                 }

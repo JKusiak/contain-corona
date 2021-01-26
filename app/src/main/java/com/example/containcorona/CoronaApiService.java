@@ -80,7 +80,7 @@ public class CoronaApiService {
                 String selectedCountry = appPreferences.getString("currentCountryName", "Poland");
                 if (!selectedCountry.equals("Global")) {
                     try {
-                        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
+                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
                             jsonData = new JSONObject(jsonBody);
                             for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
                                 if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
@@ -88,7 +88,7 @@ public class CoronaApiService {
                                     gc = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalConfirmed"));
                                     set1(nc, gc);
                                     int[] result = {nc, gc};
-                                    apiCallback.callback(result, Graph.STH_OTHER, false, null);
+                                    apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
                                     break;
                                 }
                             }
@@ -102,12 +102,12 @@ public class CoronaApiService {
                                     nr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("NewRecovered"));
                                     set2(nc, nd, nr);
                                     int[] result = {nc, nd, nr};
-                                    apiCallback.callback(result, Graph.COLUMN_NEWS, false, null);
+                                    apiCallback.callback(result, Graph.COLUMNS_TODAY, false, null);
                                     break;
                                 }
                             }
                         }
-                        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
+                        if (appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false)) {
                             jsonData = new JSONObject(jsonBody);
                             for (int i = 0; i < jsonData.getJSONArray("Countries").length(); i++) {
                                 if (jsonData.getJSONArray("Countries").getJSONObject(i).getString("Country").equals(selectedCountry)) {
@@ -115,7 +115,7 @@ public class CoronaApiService {
                                     tr = Integer.parseInt(jsonData.getJSONArray("Countries").getJSONObject(i).getString("TotalRecovered"));
                                     set3(td, tr);
                                     int[] result = {td, tr};
-                                    apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false, null);
+                                    apiCallback.callback(result, Graph.PIE_TD_VS_TR, false, null);
                                     break;
                                 }
                             }
@@ -127,13 +127,13 @@ public class CoronaApiService {
                 }
                 else {
                     try {
-                        if (appPreferences.getBoolean("pieNewCasesVsTotalCasesOn", false)) {
+                        if (appPreferences.getBoolean("barTotalCasesVsTodayCases", false)) {
                             jsonData = new JSONObject(jsonBody);
                                     nc = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewConfirmed"));
                                     gc = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalConfirmed"));
                                     set1(nc, gc);
                                     int[] result = {nc, gc};
-                                    apiCallback.callback(result, Graph.STH_OTHER, false, null);
+                                    apiCallback.callback(result, Graph.BAR_TOTAL_VS_TODAY, false, null);
                         }
                         if (appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false)) {
                             jsonData = new JSONObject(jsonBody);
@@ -142,15 +142,15 @@ public class CoronaApiService {
                                     nr = Integer.parseInt(jsonData.getJSONObject("Global").getString("NewRecovered"));
                                     set2(nc, nd, nr);
                                     int[] result = {nc, nd, nr};
-                                    apiCallback.callback(result, Graph.COLUMN_NEWS, false, null);
+                                    apiCallback.callback(result, Graph.COLUMNS_TODAY, false, null);
                         }
-                        if (appPreferences.getBoolean("barTotalDeathsVsRecoveriesOn", false)) {
+                        if (appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false)) {
                             jsonData = new JSONObject(jsonBody);
                                     td = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalDeaths"));
                                     tr = Integer.parseInt(jsonData.getJSONObject("Global").getString("TotalRecovered"));
                                     set3(td, tr);
                                     int[] result = {td, tr};
-                                    apiCallback.callback(result, Graph.PIE_NEW_VS_TOTAL, false, null);
+                                    apiCallback.callback(result, Graph.PIE_TD_VS_TR, false, null);
                         }
 
                     } catch (JSONException e) {
