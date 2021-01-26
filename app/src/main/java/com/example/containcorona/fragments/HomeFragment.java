@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
+
 import com.anychart.anychart.AnyChart;
 import com.anychart.anychart.AnyChartView;
 import com.anychart.anychart.Cartesian;
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         CoronaApiService coronaApiService = new CoronaApiService(this.getActivity(), this);
@@ -45,9 +48,10 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         appPreferences = getContext().getSharedPreferences("com.example.containcorona", Context.MODE_PRIVATE);
         TextView message = getView().findViewById(R.id.noGraphMessage);
         if (!appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", true)
-        && !appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", true)
-        && !appPreferences.getBoolean("barTotalCasesVsTodayCases", true)
-        && !appPreferences.getBoolean("waterfallOn", true)) {
+                && !appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", true)
+                && !appPreferences.getBoolean("barTotalCasesVsTodayCases", true)
+                && !appPreferences.getBoolean("waterfallOn", true)
+                && !appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", true)) {
             message.setText(R.string.noGraphsText);
         } else message.setText("");
     }
@@ -74,8 +78,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
 
                 if (percentage > 0) {
                     header_second.setText(percentage + "% more than yesterday.");
-                }
-                else {
+                } else {
                     percentage *= -1;
                     header_second.setText(percentage + "% less than yesterday.");
                 }
@@ -148,7 +151,7 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 Pie pie = AnyChart.pie();
                 pie.setData(data);
                 pie.explodeSlices(true);
-                pie.setPalette(new String[] { "#12100b", "#e52629"});
+                pie.setPalette(new String[]{"#12100b", "#e52629"});
 
                 AnyChartView anyChartView;
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
@@ -206,6 +209,39 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
                 anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
                 anyChartView.setChart(waterfall);
             }
+            break;
+            case LINE_ACCELERATION:
+                if (shouldWeFake) {
+                    break;
+                }
+            {
+                Cartesian line = AnyChart.line();
+                List<DataEntry> data = new ArrayList<>();
+
+                ArrayList<Integer> newCases = new ArrayList<>();
+                ArrayList<String> dates = new ArrayList<>();
+                for (int i = 1; i < week.size(); i++) {
+                    newCases.add(week.get(i).confirmed - week.get(i - 1).confirmed);
+                    dates.add(week.get(i).date.substring(0, week.get(i).date.indexOf('T')));
+                }
+                ArrayList<Float> percentages = new ArrayList<>();
+                for (int i = 1; i < newCases.size(); i++) {
+                    percentages.add((float) ((newCases.get(i) - newCases.get(i - 1))));
+                }
+
+                for (int i = 0; i < percentages.size(); i++) {
+                    data.add(new ValueDataEntry(dates.get(i + 1), percentages.get(i).intValue()));
+                }
+
+
+                line.setData(data);
+                line.setPalette(new String[]{"#12100b", "#e52629"});
+
+                AnyChartView anyChartView;
+                anyChartView = (AnyChartView) getView().findViewById(anvIds.get(howManyDrawn++));
+                anyChartView.setChart(line);
+            }
+
         }
     }
 
@@ -214,11 +250,13 @@ public class HomeFragment extends Fragment implements CoronaApiServiceCallback {
         anvIds.add(R.id.any_chart_viuu);
         anvIds.add(R.id.any_chart_view3);
         anvIds.add(R.id.any_chart_view4);
+        anvIds.add(R.id.any_chart_view5);
 
         for (int i = 0; i < anvIds.size(); i++) {
             fakeGraph(i);
         }
     }
+
     private void fakeGraph(int which) {
         AnyChartView anyChartView = (AnyChartView) getView().findViewById(anvIds.get(which));
         //anyChartView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));

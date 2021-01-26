@@ -101,7 +101,7 @@ public class AddGraphFragment extends Fragment {
                 editor.putBoolean("accelerationYesterdayNewVsTodayNew", isChecked);
                 editor.apply();
 
-                setBoxState(pie, appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false));
+                setBoxState(acceleration, appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false));
             }
         });
     }

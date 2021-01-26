@@ -201,6 +201,22 @@ public class CoronaApiService {
                         }
                         apiCallback.callback(null, Graph.WATERFALL, false, week);
                     }
+
+                    if (appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false)) {
+                        ArrayList<DailySummary> week = new ArrayList<>();
+                        for (int i = countryData.length() - 14; i < countryData.length(); i++) {
+                            JSONObject daySummaryJSON = countryData.getJSONObject(i);
+                            DailySummary daySummary = new DailySummary();
+                            daySummary.confirmed = daySummaryJSON.getInt("Confirmed");
+                            //daySummary.deaths = daySummaryJSON.getInt("Deaths");
+                            //daySummary.recovered = daySummaryJSON.getInt("Recovered");
+                            //daySummary.active = daySummaryJSON.getInt("Active");
+                            daySummary.date = daySummaryJSON.getString("Date");
+                            week.add(daySummary);
+                        }
+
+                        apiCallback.callback(null, Graph.LINE_ACCELERATION, false, week);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
