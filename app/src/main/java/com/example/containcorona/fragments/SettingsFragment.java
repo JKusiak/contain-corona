@@ -112,10 +112,10 @@ public class SettingsFragment extends Fragment {
 
         popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
         popupWindow.setTouchable(true);
-        TextView textAboutUs;
-        textAboutUs = popupView.findViewById(R.id.aboutUsText);
-        textAboutUs.setMovementMethod(new ScrollingMovementMethod());
-        textAboutUs.setVerticalScrollBarEnabled(false);
+
+        ScrollView aboutUsScroll;
+        aboutUsScroll = popupView.findViewById(R.id.about_us_scroll);
+        aboutUsScroll.setVerticalScrollBarEnabled(false);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override

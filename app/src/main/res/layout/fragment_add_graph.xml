@@ -12,11 +12,23 @@
         android:orientation="vertical">
 
         <CheckBox
+            android:id="@+id/colCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:button="@android:color/transparent"
+            android:drawableTop="@drawable/ic_column_chart"
+            android:text="New daily data"
+            android:textAlignment="center"
+            android:textColor="@color/our_black"
+            android:textSize="18sp" />
+
+        <CheckBox
             android:id="@+id/pieCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Pie graph"
+            android:text="Deceased vs recovered"
             android:textColor="@color/our_black"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -24,23 +36,11 @@
             android:button="@android:color/transparent"/>
 
         <CheckBox
-            android:id="@+id/colCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:button="@android:color/transparent"
-            android:drawableTop="@drawable/ic_column_chart"
-            android:text="Column graph"
-            android:textAlignment="center"
-            android:textColor="@color/our_black"
-            android:textSize="18sp" />
-
-        <CheckBox
             android:id="@+id/barCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Bar graph"
+            android:text="Today vs all data"
             android:textColor="@color/our_black"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Waterfall graph"
+            android:text="Change in active cases"
             android:textColor="@color/our_black"
             android:textAlignment="center"
             android:textSize="18sp"
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Acceleration graph"
+            android:text="New cases growth speed"
             android:textColor="@color/our_black"
             android:textAlignment="center"
             android:textSize="18sp"
