@@ -24,6 +24,7 @@ public class AddGraphFragment extends Fragment {
     CheckBox col;
     CheckBox bar;
     CheckBox water;
+    CheckBox acceleration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,11 +46,13 @@ public class AddGraphFragment extends Fragment {
         col = getView().findViewById(R.id.colCheck);
         bar = getView().findViewById(R.id.barCheck);
         water = getView().findViewById(R.id.waterCheck);
+        acceleration = getView().findViewById(R.id.accelerationCheck);
 
         setBoxState(pie, appPreferences.getBoolean("pieTotalDeathsVsTotalRecoveries", false));
         setBoxState(col, appPreferences.getBoolean("columnNewCasesDeathsAndRecoveriesOn", false));
         setBoxState(bar, appPreferences.getBoolean("barTotalCasesVsTodayCases", false));
         setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
+        setBoxState(acceleration, appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false));
 
 
         pie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -89,6 +92,16 @@ public class AddGraphFragment extends Fragment {
                 editor.apply();
 
                 setBoxState(water, appPreferences.getBoolean("waterfallOn", false));
+            }
+        });
+
+        acceleration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor = appPreferences.edit();
+                editor.putBoolean("accelerationYesterdayNewVsTodayNew", isChecked);
+                editor.apply();
+
+                setBoxState(pie, appPreferences.getBoolean("accelerationYesterdayNewVsTodayNew", false));
             }
         });
     }

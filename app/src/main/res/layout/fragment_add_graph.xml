@@ -28,12 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:button="@android:color/transparent"
+            android:drawableTop="@drawable/ic_column_chart"
             android:text="Column graph"
-            android:textColor="@color/our_black"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:drawableTop="@drawable/ic_typical_chart"
-            android:button="@android:color/transparent"/>
+            android:textColor="@color/our_black"
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/barCheck"
@@ -56,7 +56,19 @@
             android:textColor="@color/our_black"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:drawableTop="@drawable/ic_bar_chart"
+            android:drawableTop="@drawable/ic_waterfall_chart"
+            android:button="@android:color/transparent"/>
+
+        <CheckBox
+            android:id="@+id/accelerationCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Acceleration graph"
+            android:textColor="@color/our_black"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:drawableTop="@drawable/ic_acceleration_chart"
             android:button="@android:color/transparent"
             android:layout_marginBottom="75dp"/>
     </LinearLayout>
