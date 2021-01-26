@@ -25,9 +25,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </com.anychart.anychart.AnyChartView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.anychart.anychart.AnyChartView
                 android:id="@+id/any_chart_viuu"
@@ -36,9 +34,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
-
-            </com.anychart.anychart.AnyChartView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.anychart.anychart.AnyChartView
                 android:id="@+id/any_chart_view3"
@@ -76,6 +72,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:visibility="visible"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/chart_scroll_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

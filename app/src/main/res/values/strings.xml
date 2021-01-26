@@ -47,7 +47,7 @@
         <b>\n\n\nAuthors</b>
         \nMateusz Kmieciak      Juliusz Kusiak      Maciej Szulc
     </string>
-    <string name="noGraphsText">There is nothing to display here yet, \nplease add some graphs.</string>
+    <string name="noGraphsText">Nothing here yet, \nclick <b>+</b> to add some graphs.</string>
 
 
 </resources>
